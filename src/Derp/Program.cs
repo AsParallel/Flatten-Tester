@@ -41,7 +41,7 @@ namespace Derp
             if (!SupressOutput) await Console.Out.WriteLineAsync(string.Format("Processed {0} items in {1}ms", result, s.ElapsedMilliseconds.ToString()));
         }
 
-        static Func<List<List<object>>> fobjectListMaker = () =>
+        static Func<List<List<object>>> CreateSampleData = () =>
         {
             Random r = new Random();
             Func<List<object>> fobjectMaker = () =>
@@ -66,7 +66,7 @@ namespace Derp
 
         private static async Task RunTest()
         {
-            var sampleSet = fobjectListMaker();
+            var sampleSet = CreateSampleData();
             Console.Out.WriteLine("Burn in started...");
             await Evaluate(Steamroller<object>.Flatten, sampleSet, true);
             await Evaluate(Steamroller<object>.FlattenLinq, sampleSet, true);
